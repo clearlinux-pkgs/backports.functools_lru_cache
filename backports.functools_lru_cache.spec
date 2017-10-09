@@ -4,7 +4,7 @@
 #
 Name     : backports.functools_lru_cache
 Version  : 1.4
-Release  : 1
+Release  : 2
 URL      : http://pypi.debian.net/backports.functools_lru_cache/backports.functools_lru_cache-1.4.tar.gz
 Source0  : http://pypi.debian.net/backports.functools_lru_cache/backports.functools_lru_cache-1.4.tar.gz
 Summary  : backports.functools_lru_cache
@@ -68,12 +68,12 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1507571597
+export SOURCE_DATE_EPOCH=1507572757
 python2 setup.py build -b py2
 python3 setup.py build -b py3
 
 %install
-export SOURCE_DATE_EPOCH=1507571597
+export SOURCE_DATE_EPOCH=1507572757
 rm -rf %{buildroot}
 python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
 python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
@@ -86,6 +86,8 @@ echo ----[ mark ]----
 
 %files legacypython
 %defattr(-,root,root,-)
+%exclude /usr/lib/python2.7/site-packages/backports/__init__.py
+%exclude /usr/lib/python2.7/site-packages/backports/__init__.pyc
 /usr/lib/python2*/*
 
 %files python
@@ -93,4 +95,6 @@ echo ----[ mark ]----
 
 %files python3
 %defattr(-,root,root,-)
+%exclude /usr/lib/python3.6/site-packages/backports/__init__.py
+%exclude /usr/lib/python3.6/site-packages/backports/__pycache__/__init__.cpython-36.pyc
 /usr/lib/python3*/*
