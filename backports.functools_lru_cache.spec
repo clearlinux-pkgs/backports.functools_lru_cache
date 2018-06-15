@@ -4,13 +4,14 @@
 #
 Name     : backports.functools_lru_cache
 Version  : 1.5
-Release  : 11
+Release  : 12
 URL      : http://pypi.debian.net/backports.functools_lru_cache/backports.functools_lru_cache-1.5.tar.gz
 Source0  : http://pypi.debian.net/backports.functools_lru_cache/backports.functools_lru_cache-1.5.tar.gz
 Summary  : backports.functools_lru_cache
 Group    : Development/Tools
 License  : MIT
 Requires: backports.functools_lru_cache-python3
+Requires: backports.functools_lru_cache-license
 Requires: backports.functools_lru_cache-python
 Requires: Sphinx
 Requires: pytest
@@ -19,7 +20,6 @@ BuildRequires : pip
 BuildRequires : pluggy
 BuildRequires : py-python
 BuildRequires : pytest
-
 BuildRequires : python3-dev
 BuildRequires : setuptools
 BuildRequires : setuptools_scm
@@ -30,6 +30,14 @@ BuildRequires : virtualenv
 %description
 .. image:: https://img.shields.io/pypi/v/backports.functools_lru_cache.svg
 :target: https://pypi.org/project/backports.functools_lru_cache
+
+%package license
+Summary: license components for the backports.functools_lru_cache package.
+Group: Default
+
+%description license
+license components for the backports.functools_lru_cache package.
+
 
 %package python
 Summary: python components for the backports.functools_lru_cache package.
@@ -57,11 +65,13 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1523285611
+export SOURCE_DATE_EPOCH=1529092133
 python3 setup.py build -b py3
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/doc/backports.functools_lru_cache
+cp LICENSE %{buildroot}/usr/share/doc/backports.functools_lru_cache/LICENSE
 python3 -tt setup.py build -b py3 install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -69,6 +79,10 @@ echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
+
+%files license
+%defattr(-,root,root,-)
+/usr/share/doc/backports.functools_lru_cache/LICENSE
 
 %files python
 %defattr(-,root,root,-)
